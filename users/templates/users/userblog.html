@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="">{{ user_post.author }}</a>
+            <small class="text-muted">{{ user_post.date_posted | date:"F d, Y" }}</small>
+          </div>
+          <h2><a class="article-title" href="">{{ user_post.title }}</a></h2>
+          <p class="article-content">{{ user_post.content }}</p>
+        </div>
+      </article>
+{% endblock content %}
