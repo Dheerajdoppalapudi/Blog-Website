@@ -11,3 +11,12 @@ def home(request):
 
 def about(request):
     return render(request, 'blog/about.html', {'title':'About'})
+
+def search_name(request):
+    if request.method == "POST":
+        form_data = request.POST.get('title')
+    context = {
+        "queried_user": form_data,
+        "message": "nothing matched your search result",
+    }
+    return render(request, 'blog/search.html', context)
