@@ -12,6 +12,7 @@ def home(request):
 def about(request):
     return render(request, 'blog/about.html', {'title':'About'})
 
+@login_required
 def search_name(request):
     if request.method == "POST":
         form_data = request.POST.get('title')
