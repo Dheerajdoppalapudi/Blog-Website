@@ -26,9 +26,17 @@ def search_name(request):
             }
             return render(request, 'blog/search.html', context)
         except User.DoesNotExist:
-            pass
-    context = {
-        "queried_user": form_data,
-        "message": "nothing matched your search result",
-    }
-    return render(request, 'blog/search.html', context)
+            try:
+                post = Post.objects.filter(title__contains=form_data)
+                context = {
+                    "user_posts": post,
+                    "queried_user": form_data
+                }
+                return render(request, 'blog/search.html', context)
+            except Post.DoesNotExist:
+                pass
+        context = {
+            "queried_user": form_data,
+            "message": "nothing matched your search result",
+        }
+        return render(request, 'blog/search.html', context)
