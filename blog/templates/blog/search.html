@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>search</title>
-</head>
-<body>
-    <h1>search page</h1>
-</body>
-</html>
+{% extends "blog/base.html" %}
+{% block content %}
+    <form action="{% url 'search' %}" method="POST">{% csrf_token %}
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Search Here" name="title" autocomplete="off">
+        <button type="submit" class="btn btn-dark">Search</button>
+    </form>
+    <div>
+        {% if user_posts %}
+            {% for post in user_posts %}
+                <article class="media content-section">
+                    <div class="media-body">
+                      <div class="article-metadata">
+                        <a class="mr-2" href="#">{{ post.author }}</a>
+                        <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+                      </div>
+                      <h2><a class="article-title" href="{% url 'specific_blog' post.author post.title %}">{{ post.title }}</a></h2>
+                      <p class="article-content">{{ post.content }}</p>
+                    </div>
+                  </article>
+            {% endfor %}
+        {% else %}
+            <h2>your search: {{ queried_user }}</h2>
+            <h2>{{ message }}</h2>
+        {% endif %}
+    </div>
+{% endblock content %}
