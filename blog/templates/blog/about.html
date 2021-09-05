@@ -1,4 +1,7 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    <h1>About Page !</h1>
+    <form action="{% url 'search' %}" method="POST">{% csrf_token %}
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Search Here" name="title" autocomplete="off">
+        <button type="submit" class="btn btn-dark">Search</button>
+    </form>
 {% endblock content %}
