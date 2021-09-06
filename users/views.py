@@ -34,3 +34,15 @@ def profile(request, username):
         "queried_user": User.objects.get(username=username)
     }
     return render(request, 'users/profile.html', profile_context)
+
+@login_required
+def specific_blog(request, username, title):
+    try:
+        current_user_id = User.objects.get(username=username)
+        post = Post.objects.get(title=title, author=current_user_id)
+    except User.DoesNotExist:
+        raise Http404("User Does Not Exist")
+    context = {
+            "user_post": post
+        }
+    return render(request, 'users/userblog.html', context)
