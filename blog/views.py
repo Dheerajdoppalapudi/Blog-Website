@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Post
 from users.models import User
+from .forms import RawSearch
+from django.http import Http404
+from django.http import HttpResponse
 
 @login_required
 def home(request):
@@ -15,6 +18,14 @@ def about(request):
 
 @login_required
 def search_name(request):
+    """myform = RawSearch()
+    if request.method == "POST":
+        myform = RawSearch(request.POST)
+        print("myform", myform)
+        if myform.is_valid():
+            print(myform.cleaned_data)
+        else:
+            print(myform.errors)"""
     if request.method == "POST":
         form_data = request.POST.get('title')
         try:
